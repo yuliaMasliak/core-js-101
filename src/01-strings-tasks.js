@@ -198,8 +198,12 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const top = toString('┌') + '─'.repeat(width) + toString('┐\n');
+  const middle = toString('│') + ' '.repeat(width) + toString('│\n');
+  const bottom = toString('└') + '─'.repeat(width) + toString('┘\n');
+
+  return top + middle.repeat(height) + bottom;
 }
 
 /**
@@ -218,10 +222,30 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
-}
+// function encodeToRot13(str) {
+//   const arr = [];
+//   str.split('').forEach((element) => {
+//     arr.push(element);
+//   });
 
+//   const arr2 = [];
+//   arr.forEach((char, index) => {
+//     if (
+//       str.charCodeAt(index) === 32 ||
+//       str.charCodeAt(index) === 63 ||
+//       str.charCodeAt(index) === 33
+//     ) {
+//       arr2.push(str.charCodeAt(index));
+//     } else {
+//       /[A-Z]/.test(char)
+//         ? arr2.push(str.charCodeAt(index) + 32 + 13)
+//         : arr2.push(str.charCodeAt(index) + 13);
+//     }
+//   });
+
+//   const result = String.fromCharCode(...arr2);
+//   return result;
+// }
 /**
  * Returns true if the value is string; otherwise false.
  * @param {string} value
@@ -235,8 +259,11 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if (typeof value === 'string' || value instanceof String) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -263,8 +290,63 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const arr = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+  const result = arr.indexOf(value);
+  return result;
 }
 
 module.exports = {
@@ -280,7 +362,7 @@ module.exports = {
   convertToUpperCase,
   extractEmails,
   getRectangleString,
-  encodeToRot13,
+  // encodeToRot13,
   isString,
   getCardId,
 };
