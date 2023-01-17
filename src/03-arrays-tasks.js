@@ -259,11 +259,10 @@ function getMovingSum(arr) {
  * [ 'a', 'b', 'c' , null ]  => [ "b", null ]
  * [ "a" ] => []
  */
-// function getSecondItems(arr) {
-//   return arr.filter((item, index) => {
-//     return index % 2 !== 0;
-//   });
-// }
+function getSecondItems(arr) {
+  const result = arr.filter((item, index) => index % 2 !== 0);
+  return result;
+}
 
 /**
  * Propagates every item in sequence its position times
@@ -279,10 +278,15 @@ function getMovingSum(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  const newArr = [];
+  arr.forEach((element, index) => {
+    for (let i = 1; i <= index + 1; i += 1) {
+      newArr.push(element);
+    }
+  });
+  return newArr;
 }
-
 /**
  * Returns the 3 largest numbers from the specified array
  *
@@ -296,8 +300,9 @@ function propagateItemsByPositionIndex(/* arr */) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  const result = arr.sort((a, b) => b - a);
+  return result;
 }
 
 /**
@@ -313,8 +318,9 @@ function get3TopItems(/* arr */) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  const result = arr.filter((item) => item > 0);
+  return result;
 }
 
 /**
@@ -330,8 +336,25 @@ function getPositivesCount(/* arr */) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const digitsComparator = (a, b) => {
+    const mapper = [
+      'zero',
+      'one',
+      'two',
+      'three',
+      'four',
+      'five',
+      'six',
+      'seven',
+      'eight',
+      'nine',
+    ];
+    return mapper.indexOf(a) - mapper.indexOf(b);
+  };
+
+  const res = arr.sort(digitsComparator);
+  return res;
 }
 
 /**
@@ -346,8 +369,13 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  throw new Error('Not implemented');
+function getItemsSum(arr) {
+  const initialValue = 0;
+  const sumWithInitial = arr.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    initialValue,
+  );
+  return sumWithInitial;
 }
 
 /**
@@ -362,8 +390,14 @@ function getItemsSum(/* arr */) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  const newArr = [];
+  arr.forEach((el) => {
+    if (!el) {
+      newArr.push(el);
+    }
+  });
+  return newArr.length;
 }
 
 /**
@@ -380,8 +414,9 @@ function getFalsyValuesCount(/* arr */) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurrences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurrences(arr, item) {
+  const result = arr.filter((el) => el === item);
+  return result.length;
 }
 
 /**
@@ -395,8 +430,8 @@ function findAllOccurrences(/* arr, item */) {
  *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
-function toStringList(/* arr */) {
-  throw new Error('Not implemented');
+function toStringList(arr) {
+  return arr.join(',');
 }
 
 /**
@@ -464,9 +499,14 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  const arr = [];
+  for (let i = start; i <= end; i += 1) {
+    arr.push(i);
+  }
+  return arr;
 }
+
 
 /**
  * Returns array containing only unique values from the specified array.
@@ -479,10 +519,16 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
-}
+function distinct(arr) {
+  const newArr = [];
 
+  arr.forEach((el) => {
+    if (!newArr.includes(el)) {
+      newArr.push(el);
+    }
+  });
+  return newArr;
+}
 /**
  * Groups elements of the specified array by key.
  * Returns multimap of keys extracted from array elements via keySelector callback
@@ -588,7 +634,7 @@ module.exports = {
   toStringList,
   toArrayOfSquares,
   getMovingSum,
-  // getSecondItems,
+  getSecondItems,
   propagateItemsByPositionIndex,
   get3TopItems,
   getPositivesCount,
