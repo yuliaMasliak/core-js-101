@@ -14,6 +14,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
   },
-  rules: { 'linebreak-style': 0 },
+  rules: {
+    'linebreak-style': 0,
+    'no-restricted-globals': ['error', 'event', 'fdescribe'],
+  },
 };
 /*eslint linebreak-style: ["error", "unix"]*/

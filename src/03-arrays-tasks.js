@@ -36,14 +36,10 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-  const arr = new Array(len);
-  for (let i = 0; i < len; i += 1) {
-    const y = i * 2 + 1;
-    arr.push(y);
-  }
-
-  return arr.flat();
+  const arr = Array.from(Array(len).keys());
+  return arr.map((el) => (el !== 0 ? el * 2 + 1 : 1));
 }
+
 /**
  * Returns the doubled array - elements of the specified array
  * are repeated twice using original order
@@ -78,7 +74,8 @@ function doubleArray(arr) {
  *    [] => []
  */
 function getArrayOfPositives(arr) {
-  return arr.filter((el) => el > 0);
+  const result = arr.filter((el) => el > 0);
+  return result;
 }
 
 /**
@@ -207,11 +204,7 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-  const comma = arr
-    .for((el) => {
-      el.join(',');
-    })
-    .join('\n');
+  const comma = arr.map((array) => `${array.join(',')}\n'+`).join(',');
   return comma;
 }
 
@@ -245,8 +238,15 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-  return arr.map((el, index) => el + index);
+  let sum = 0;
+  const newArr = [];
+  arr.forEach((x) => {
+    newArr.push(sum + x);
+    sum += x;
+  });
+  return newArr;
 }
+
 
 /**
  * Returns every second item from the specified array:
@@ -302,7 +302,7 @@ function propagateItemsByPositionIndex(arr) {
  */
 function get3TopItems(arr) {
   const result = arr.sort((a, b) => b - a);
-  return result;
+  return result.slice(0, 3);
 }
 
 /**
@@ -576,9 +576,13 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  const newArr = [];
+  const result = arr.flat().map(childrenSelector).join();
+  newArr.push(result);
+  return newArr;
 }
+
 
 /**
  * Returns an element from the multidimensional array by the specified indexes.
@@ -614,9 +618,39 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  const newArr = [];
+  const head = [];
+  const tail = [];
+  if (arr.length % 2 === 0) {
+    const middle = arr.length / 2;
+    arr.forEach((element, index) => {
+      if (index >= middle) {
+        head.push(element);
+      }
+      if (index < middle) {
+        tail.push(element);
+      }
+    });
+    newArr.push(head);
+    newArr.push(tail);
+    return newArr.flat();
+  }
+  const middle = (arr.length - 1) / 2;
+  arr.forEach((element, index) => {
+    if (index > middle) {
+      head.push(element);
+    }
+    if (index < middle) {
+      tail.push(element);
+    }
+  });
+  newArr.push(head);
+  newArr.push(arr[middle]);
+  newArr.push(tail);
+  return newArr.flat();
 }
+
 
 module.exports = {
   findElement,

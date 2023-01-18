@@ -49,9 +49,12 @@ function getCircleCircumference(radius) {
  *  10, 0  => 5
  *  -3, 3  => 0
  */
+
 function getAverage(value1, value2) {
-  const avarage = (value1 + value2) / 2;
-  return avarage;
+  if (value1 === value2) return value1;
+  const valMax = Math.max(value1, value2);
+  const valMin = Math.min(value1, value2);
+  return valMin > 0 ? (valMax - valMin) / 2 : (valMax + valMin) / 2;
 }
 
 /**
@@ -118,7 +121,7 @@ function getLinearEquationRoot(a, b) {
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
   const angle = Math.atan2(y2, x2) - Math.atan2(y1, x1);
-  return angle;
+  return Math.abs(angle);
 }
 
 /**
@@ -149,7 +152,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-  const result = Number.parseInt(value, 10);
+  const result = Number.parseFloat(value, 10);
   return result;
 }
 
@@ -232,14 +235,15 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-// function toNumber(value, def) {
-//   let result = value;
-//   const test = parseInt(value, 10);
-//   if (isNaN(test)) {
-//     result = def;
-//   }
-//   return result;
-// }
+function toNumber(value, def) {
+  let result = def;
+  const test = parseInt(value, 10);
+
+  if (typeof test === 'number' && !isNaN(test)) {
+    result = test;
+  }
+  return result;
+}
 
 module.exports = {
   getRectangleArea,
@@ -253,5 +257,5 @@ module.exports = {
   getParallelepipedDiagonal,
   roundToPowerOfTen,
   isPrime,
-  // toNumber,
+  toNumber,
 };
