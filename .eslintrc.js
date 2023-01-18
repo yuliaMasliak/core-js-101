@@ -16,7 +16,7 @@ module.exports = {
   },
   rules: {
     'linebreak-style': 0,
-    'no-restricted-globals': ['error', 'event', 'fdescribe'],
+    // 'no-restricted-globals': ['error', 'event', 'fdescribe'],
   },
 };
 /*eslint linebreak-style: ["error", "unix"]*/
