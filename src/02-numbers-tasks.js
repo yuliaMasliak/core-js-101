@@ -235,15 +235,15 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(value, def) {
-  let result = def;
-  const test = parseInt(value, 10);
+// function toNumber(value, def) {
+//   let result = def;
+//   const test = parseInt(value, 10);
 
-  if (typeof test === 'number' && !isNaN(test)) {
-    result = test;
-  }
-  return result;
-}
+//   if (typeof test === 'number' && !isNaN(test)) {
+//     result = test;
+//   }
+//   return result;
+// }
 
 module.exports = {
   getRectangleArea,
@@ -257,5 +257,5 @@ module.exports = {
   getParallelepipedDiagonal,
   roundToPowerOfTen,
   isPrime,
-  toNumber,
+  // toNumber,
 };
