@@ -203,9 +203,9 @@ function getTail(arr, n) {
  *    +'20,21,22,23,24\n'
  *    +'30,31,32,33,34'
  */
+
 function toCsvText(arr) {
-  const comma = arr.map((array) => `${array.join(',')}\n'+`).join(',');
-  return comma;
+  return arr.map((e) => e.join(',')).join('\n');
 }
 
 /**
@@ -319,8 +319,8 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-  const result = arr.filter((item) => item > 0);
-  return result;
+  const result = arr.filter((item) => typeof item === 'number' && item > 0);
+  return result.length;
 }
 
 /**
@@ -577,12 +577,9 @@ function group(/* array, keySelector, valueSelector */) {
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-  const newArr = [];
-  const result = arr.flat().map(childrenSelector).join();
-  newArr.push(result);
-  return newArr;
+  const result = arr.flatMap(childrenSelector);
+  return result;
 }
-
 
 /**
  * Returns an element from the multidimensional array by the specified indexes.
