@@ -53,13 +53,9 @@ function generateOdds(len) {
  *    [] => []
  */
 function doubleArray(arr) {
-  const arr1 = [];
-  arr.forEach((element) => {
-    arr1.push(element);
-  });
-  arr.push(arr1);
-  const flattened = arr.flatMap((num) => num);
-  return flattened;
+  const arr1 = [...arr];
+  arr1.push(arr);
+  return arr1;
 }
 
 /**
@@ -499,14 +495,12 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(start, end) {
-  const arr = [];
-  for (let i = start; i <= end; i += 1) {
-    arr.push(i);
-  }
-  return arr;
-}
 
+
+function getIntervalArray(start, end) {
+  const arr = [...Array(end - start + 1)];
+  return arr.map((el, i) => start + i);
+}
 
 /**
  * Returns array containing only unique values from the specified array.

@@ -51,8 +51,12 @@ function getJSON(obj) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  const obj = JSON.parse(json);
+
+  const values = Object.values(obj);
+
+  return new proto.constructor(...values);
 }
 
 
@@ -110,40 +114,45 @@ function fromJSON(/* proto, json */) {
  *  For more examples see unit tests.
  */
 
-const cssSelectorBuilder = {
-  element(/* value */) {
-    throw new Error('Not implemented');
-  },
+// class cssSelectorBuilder  {
+//   constructor(value) {
+//     this.value = value;
+//   }
+//   element(value) {
+//     return (value);
+//   },
 
-  id(/* value */) {
-    throw new Error('Not implemented');
-  },
+//   id(value) {
+//     return this.id(value);
+//   },
 
-  class(/* value */) {
-    throw new Error('Not implemented');
-  },
+//   class(value) {
+//     return this.class(value);
+//   },
 
-  attr(/* value */) {
-    throw new Error('Not implemented');
-  },
+//   attr(value) {
+//     return [value];
+//   },
 
-  pseudoClass(/* value */) {
-    throw new Error('Not implemented');
-  },
+//   pseudoClass(value) {
+//     return `:${value}`;
+//   },
 
-  pseudoElement(/* value */) {
-    throw new Error('Not implemented');
-  },
-
-  combine(/* selector1, combinator, selector2 */) {
-    throw new Error('Not implemented');
-  },
-};
+//   pseudoElement(value) {
+//     throw new Error('Not implemented');
+//   },
+//   stringify(){
+//     return
+//   }
+//   combine(selector1, combinator, selector2) {
+//     return
+//   },
+// };
 
 
 module.exports = {
   Rectangle,
   getJSON,
   fromJSON,
-  cssSelectorBuilder,
+  // cssSelectorBuilder,
 };
