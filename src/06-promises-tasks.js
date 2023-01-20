@@ -101,17 +101,13 @@ function getFastestPromise(array) {
  *
  */
 function chainPromises(array, action) {
-  try {
-    const sum = 0;
-
-    const myPromise = Promise.resolve(array)
-      .then((value) => value.reduce((action), sum))
-      .then((value) => value);
-
-    return myPromise;
-  } catch (Error) {
-    return 'caught';
+  const arr = [];
+  for (let i = 0; i < array.length - 1; i += 1) {
+    array[i].then((res) => arr.push(res), () => { });
   }
+  return array[array.length - 1]
+    .then((res) => { arr.push(res); return arr; }, () => { })
+    .then((value) => value.reduce(action));
 }
 
 module.exports = {
