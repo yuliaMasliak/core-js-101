@@ -53,11 +53,8 @@ function generateOdds(len) {
  *    [] => []
  */
 function doubleArray(arr) {
-  const arr1 = [...arr];
-  arr1.push(arr);
-  return arr1;
+  return arr.slice().concat(arr);
 }
-
 /**
  * Returns an array of positive numbers from the specified array in original order
  *
@@ -70,8 +67,7 @@ function doubleArray(arr) {
  *    [] => []
  */
 function getArrayOfPositives(arr) {
-  const result = arr.filter((el) => el > 0);
-  return result;
+  return arr.filter((el) => el > 0);
 }
 
 /**
@@ -235,12 +231,10 @@ function toArrayOfSquares(arr) {
  */
 function getMovingSum(arr) {
   let sum = 0;
-  const newArr = [];
-  arr.forEach((x) => {
-    newArr.push(sum + x);
+  return arr.map((x) => {
     sum += x;
+    return sum;
   });
-  return newArr;
 }
 
 
@@ -456,8 +450,14 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  const sortedCountry = arr.sort((a, b) => {
+    if (a.country === b.country) {
+      return a.city > b.city ? 1 : -1;
+    }
+    return a.country > b.country ? 1 : -1;
+  });
+  return sortedCountry;
 }
 
 /**
@@ -478,8 +478,14 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+
+function getIdentityMatrix(n) {
+  const matrix = Array(n)
+    .fill(0)
+    .map((el, i) => Array(n)
+      .fill(0)
+      .map((elem, j) => (i === j ? 1 : 0)));
+  return matrix;
 }
 
 /**
@@ -550,11 +556,20 @@ function distinct(arr) {
  *   Map {
  *    "Belarus" => ["Brest", "Grodno", "Minsk"],
  *    "Russia" => ["Omsk", "Samara"],
- *    "Poland" => ["Lodz"]
+ *    "Poland" = > ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const map = array.reduce((acc, curr) => {
+    const value = valueSelector(curr);
+    const key = keySelector(curr);
+    if (!acc.has(key)) {
+      acc.set(key, []);
+    }
+    acc.get(key).push(value);
+    return acc;
+  }, new Map());
+  return map;
 }
 
 /**
@@ -587,8 +602,8 @@ function selectMany(arr, childrenSelector) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  return indexes.reduce((prev, curr) => prev[curr], arr);
 }
 
 /**

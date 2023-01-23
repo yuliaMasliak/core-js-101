@@ -199,11 +199,18 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  const top = toString('┌') + '─'.repeat(width) + toString('┐\n');
-  const middle = toString('│') + ' '.repeat(width) + toString('│\n');
-  const bottom = toString('└') + '─'.repeat(width) + toString('┘\n');
+  let topSide = '';
+  let botSide = '';
+  let midSide = '';
+  const symb1 = '─';
+  const symb2 = ' ';
+  const symb3 = '│';
+  if (width < 2 || height < 2) return false;
 
-  return top + middle.repeat(height) + bottom;
+  topSide = `┌${symb1.repeat(width - 2)}┐\n`;
+  midSide = `${symb3 + symb2.repeat(width - 2) + symb3}\n`;
+  botSide = `└${symb1.repeat(width - 2)}┘\n`;
+  return topSide + midSide.repeat(height - 2) + botSide;
 }
 
 /**
@@ -222,30 +229,10 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-// function encodeToRot13(str) {
-//   const arr = [];
-//   str.split('').forEach((element) => {
-//     arr.push(element);
-//   });
-
-//   const arr2 = [];
-//   arr.forEach((char, index) => {
-//     if (
-//       str.charCodeAt(index) === 32 ||
-//       str.charCodeAt(index) === 63 ||
-//       str.charCodeAt(index) === 33
-//     ) {
-//       arr2.push(str.charCodeAt(index));
-//     } else {
-//       /[A-Z]/.test(char)
-//         ? arr2.push(str.charCodeAt(index) + 32 + 13)
-//         : arr2.push(str.charCodeAt(index) + 13);
-//     }
-//   });
-
-//   const result = String.fromCharCode(...arr2);
-//   return result;
-// }
+function encodeToRot13(str) {
+  return str.replace(/[A-Z]/gi, (c) => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'[
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.indexOf(c)]);
+}
 /**
  * Returns true if the value is string; otherwise false.
  * @param {string} value
@@ -362,7 +349,7 @@ module.exports = {
   convertToUpperCase,
   extractEmails,
   getRectangleString,
-  // encodeToRot13,
+  encodeToRot13,
   isString,
   getCardId,
 };
